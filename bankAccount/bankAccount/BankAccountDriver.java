@@ -1,9 +1,8 @@
 package bankAccount;
 
-public class Main {
+public class BankAccountDriver {
 
 	public static void main(String[] args) {
-		
 
 	}
 
