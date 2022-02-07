@@ -5,23 +5,29 @@ public class BankHistory {
 	private String purchase;
 	private double amount;
 	private Date date;
+	private String type;
 	
 	public BankHistory(){}
 	
 	public BankHistory(String purchase, double amount, Date date){
 		this.purchase = purchase;
-		this.amount = amount;
+		this.amount = Math.round(amount * 100.0) / 100.0;
 		this.date = date;
 	}
 	
-	public void setPurchase() {
+	public void setPurchase(String type) {
 		Scanner sc = new Scanner(System.in);
 		purchase = sc.nextLine();
+		this.type = type;
 	}
 	public boolean setAmount() {
 		Scanner sc = new Scanner(System.in);
 		try {
-			amount = sc.nextDouble();
+			amount = Math.round(sc.nextDouble() * 100.0) / 100.0;
+			if(amount <= 0) {
+				System.out.println("Please enter a number greater than 0!");
+				return false;
+			}
 			return true;
 		}catch(Exception e) {
 			System.out.println("Invalid entry! Please enter a number. (EX. 25000)");
@@ -61,6 +67,27 @@ public class BankHistory {
 	}
 	
 	public String toString() {
-		return purchase + "      $" + amount + "      " + date;
+		String spacesP = " ";
+		String spacesA = " ";
+		String amountString = amount + "";
+		for(int i = 0; i < 25; i++) {
+			if(!(i < purchase.length())) {
+				spacesP += " ";
+			}
+		}
+		
+		for(int i = 0; i < 25; i++) {
+			if(!(i < amountString.length())) {
+				spacesA += " ";
+			}
+		}
+		
+		
+		
+		if(type.equals("P")) {
+			return purchase + spacesP + "-$" + amount + spacesA + date;
+		}
+		return purchase + spacesP + "+$" + amount + spacesA + date;
+		
 	}
 }
