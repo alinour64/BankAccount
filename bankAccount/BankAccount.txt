@@ -1,2 +1,4 @@
 Bank Account Balance:
-$5.0
+$0.0
+null      $25000.0      6/15/2003
+House      $250000.0      6/15/2000

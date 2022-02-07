@@ -22,10 +22,12 @@ public class BankAccountDriver {
 			balance = Double.parseDouble(account.get(1).substring(1));
 			account.set(1, "$" + balance);
 			input.close();
+			print();
+			addingToBankHistory();
 		}catch (IOException e) {
 			createAccount();
 		}
-		print();
+		
 	}
 	/**
 	 * Prints every transaction to the text file as well as updating the bank account balance.
@@ -53,11 +55,38 @@ public class BankAccountDriver {
 			output = new PrintWriter(new FileOutputStream("BankAccount.txt"));
 			output.println("Bank Account Balance:");
 			output.println("$" + balance);
+			System.out.println("Welcome to your bank account!");
+			addingToBankHistory();
 		}catch(IOException e){
 			System.out.println("Error: Can't locate file!");
 			System.exit(0);
 		}
 		output.close(); 
+	}
+	
+	public static void addingToBankHistory() {
+		Scanner sc = new Scanner(System.in);
+		BankHistory item = new BankHistory();
+		boolean valid = false;
+		System.out.println("What did you purchase?");
+		item.setPurchase();
+		
+		System.out.println("How much was your purchase?");
+		do {
+			valid = item.setAmount();
+		}while(!valid);
+		
+		
+		
+		System.out.println("On what date did you purchase this? (MM/DD/YYYY)");
+		
+		do {
+			valid = item.setDate();
+			
+		}while(!valid);
+		
+		account.add(item.toString());
+		print();
 	}
 
 }
