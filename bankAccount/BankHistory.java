@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class BankHistory {
@@ -67,9 +68,11 @@ public class BankHistory {
 	}
 	
 	public String toString() {
+		DecimalFormat format = new DecimalFormat("#,###.00");
+		
 		String spacesP = " ";
 		String spacesA = " ";
-		String amountString = amount + "";
+		String amountString = format.format(amount);
 		for(int i = 0; i < 25; i++) {
 			if(!(i < purchase.length())) {
 				spacesP += " ";
@@ -85,9 +88,9 @@ public class BankHistory {
 		
 		
 		if(type.equals("P")) {
-			return purchase + spacesP + "-$" + amount + spacesA + date;
+			return purchase + spacesP + "-$" + amountString + spacesA + date;
 		}
-		return purchase + spacesP + "+$" + amount + spacesA + date;
+		return purchase + spacesP + "+$" + format.format(amount) + spacesA + date;
 		
 	}
 }

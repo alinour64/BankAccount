@@ -2,15 +2,16 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BankAccountDriver {
-
 	private static double balance = 0.0;
 	private static ArrayList<String> account = new ArrayList<String>();
 	
 	public static void main(String[] args) {
+		
 		Scanner sc = new Scanner(System.in);
 		Scanner input = null;
 		
@@ -19,7 +20,7 @@ public class BankAccountDriver {
 			while(input.hasNextLine()) {
 				account.add(input.nextLine());
 			}
-			balance = Double.parseDouble(account.get(1).substring(1));
+			balance = Double.parseDouble(account.get(1).substring(1).replace(",", ""));
 			account.set(1, "$" + balance);
 			input.close();
 			print();
@@ -44,7 +45,7 @@ public class BankAccountDriver {
 	 * Prints every transaction to the text file as well as updating the bank account balance.
 	 */
 	public static void print() {
-
+		
 		PrintWriter output = null;
 		try {
 			output = new PrintWriter(new FileOutputStream("BankAccount.txt"));
@@ -102,6 +103,8 @@ public class BankAccountDriver {
 	}
 	
 	public static void addIncome() {
+		DecimalFormat format = new DecimalFormat("#,###.00");
+		
 		Scanner sc = new Scanner(System.in);
 		BankHistory item = new BankHistory();
 		boolean valid = false;
@@ -122,13 +125,14 @@ public class BankAccountDriver {
 			
 		}while(!valid);
 		balance += item.getAmount();
-		account.set(1, "$" + balance);
+		account.set(1, "$" + format.format(balance));
 		account.add(item.toString());
-		System.out.println("You now have $" + balance + " in your account!");
+		System.out.println("You now have $" + format.format(balance) + " in your account!");
 		print();
 	}
 	
 	public static void addingToBankHistory() {
+		DecimalFormat format = new DecimalFormat("#,###.00");
 		Scanner sc = new Scanner(System.in);
 		BankHistory item = new BankHistory();
 		boolean valid = false;
@@ -150,13 +154,13 @@ public class BankAccountDriver {
 		}while(!valid);
 		balance -= item.getAmount();
 		if(balance >= 0) {
-			account.set(1, "$" + balance);
+			account.set(1, "$" + format.format(balance));
 			account.add(item.toString());
 		}else {
 			System.out.println("Sorry you do not have enough money! You need $" + balance*-1 + " more in order to make this purchase!");
 			balance += item.getAmount();
 		}
-		System.out.println("You now have $" + balance + " in your account!");
+		System.out.println("You now have $" + format.format(balance) + " in your account!");
 		print();
 	}
 
