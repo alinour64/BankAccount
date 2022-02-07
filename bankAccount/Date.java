@@ -1,9 +1,8 @@
 /**
  * Date class:
- * This class takes in a weight and checks if the weight is valid then returns the weight in a user friendly way.
+ * This class takes in a Date and checks if the Date is valid then returns the Date in a user friendly way. This class checks for leap years as well.
  *
  * @author Nour Ali
- * @version 2021
  */
 public class Date {
 
@@ -118,7 +117,10 @@ public class Date {
 			valid = false;
 		}
 	}
-	
+	/**
+	 * This method checks if the date is valid.
+	 * @return boolean
+	 */
 	public boolean isValid() {
 		if(!valid) {
 			System.out.println("Invalid Date!");
